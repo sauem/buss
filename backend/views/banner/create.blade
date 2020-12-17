@@ -1,0 +1,80 @@
+<?php
+
+use kartik\form\ActiveForm;
+use common\helper\Helper;
+use kartik\select2\Select2;
+use backend\models\Banners;
+?>
+@section('content')
+    <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $view->render('@backend/views/parts/FileUpload.blade', [
+                'form' => $form,
+                'model' => $model,
+                'name' => 'thumb'
+            ])?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'title')?>
+            <?= $form->field($model, 'href')?>
+            <div class="row">
+                <div class="col">
+                    <?= $form->field($model, 'width')->label('Chiều rộng (px)')?>
+                </div>
+                <div class="col">
+                    <?= $form->field($model, 'height')->label('Chiều cao (px)')?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'page')->widget(Select2::className(), [
+                'data' => Banners::PAGE,
+                'options' => ['placeholder' => 'Trang hiển thị..'],
+                'pluginOptions' => ['allowClear' => true, 'multiple' => true]
+            ])?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'position')->widget(Select2::className(), [
+                'data' => Banners::POSITION,
+                'options' => ['placeholder' => 'Vị trí hiển thị..'],
+                'pluginOptions' => ['allowClear' => true]
+            ])?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'active')->widget(Select2::className(), [
+                'data' => Banners::STATUS,
+                'pluginOptions' => ['allowClear' => true]
+            ])?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'type')->widget(Select2::className(), [
+                'data' => Banners::TYPE,
+                'pluginOptions' => ['allowClear' => true]
+            ])?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'device')->widget(Select2::className(), [
+                'data' => Banners::DEVICE,
+                'pluginOptions' => ['allowClear' => true]
+            ])?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'is_random')->widget(Select2::className(), [
+                'data' => Banners::STYLE,
+                'pluginOptions' => ['allowClear' => true]
+            ])?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'sort')->textInput(['type' => 'number', 'placeholder' => 'default 50', 'min' => 0])?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'bellow_post')->textInput(['type' => 'number', 'min' => 0])?>
+        </div>
+        <div class="col-12">
+            <?= $form->field($model, 'youtube_url')->textInput()?>
+        </div>
+    </div>
+    <?php ActiveForm::end(); ?>
+
+@stop

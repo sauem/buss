@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-12">
+        @foreach(Yii::$app->session->getAllFlashes() as $key => $messages)
+            <div class="alert alert-{!! $key !!} alert-dismissible bg-{!! $key !!} text-white border-0 fade show"
+                 role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                {!! $messages !!}
+            </div>
+        @endforeach
+
+    </div>
+</div>

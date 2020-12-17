@@ -1,0 +1,70 @@
+@section('content')
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Import {!! $module !!}</h4>
+        </div>
+        <div class="card-body">
+            <div class="import-wrap">
+                <div class="import-area">
+                    <input data-module="{!! $module !!}" onchange="handleReadExcel(this)" name="file" type="file">
+                    <div class="note">
+                        <i class="fe-upload"></i>
+                        <p>Nhấn hoặc kéo thả file excel tại đây</p>
+                    </div>
+                </div>
+                <div class="file-note mt-3 d-flex justify-content-between">
+                    <div class="note-input">
+                        <ul class="text-danger list-unstyled">
+                            <li><b><i class="fe-alert-triangle"></i> CHÚ Ý:</b></li>
+                            <li><i class="fe-chevrons-right"></i> Đặt tên sheet <b>{!! $module !!}</b></li>
+                            <li><i class="fe-chevrons-right"></i> Số dòng dữ liệu không quá <b>50.000 dòng</b></li>
+                            <li><i class="fe-chevrons-right"></i> Nhập file định dạng <b>xlxs, xls, csv</b></li>
+                        </ul>
+                    </div>
+                    <div class="counter">
+                        <ul class="text-danger list-unstyled">
+                            <li><b><i class="fe-info"></i> Thông tin file:</b></li>
+                            <li><i class="fe-chevrons-right"></i> Kích thước <b class="fileSizeText">0</b></li>
+                            <li><i class="fe-chevrons-right"></i> Số dòng <b class="totalRowsText">0</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="result-import" class="card-box"></div>
+    <div class="card-box table-responsive" id="file-view-result"></div>
+@stop
+@section('pos_page')
+    <script id="progress-template" type="text/x-handlebars-template">
+        <table class="w-auto table-borderless table table-sm">
+            <tr>
+                <td>Tổng số dòng</td>
+                <td>@{{totalRows}}</td>
+                <td>Số dòng lỗi</td>
+                <td>@{{ errorRows }}/@{{totalRows}}</td>
+                <td>Nhập thành công</td>
+                <td>@{{ successRows }}/@{{ totalRows }}</td>
+            </tr>
+        </table>
+        <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+             style="width: @{{ progressPercent }}%;"
+             aria-valuenow="@{{ progressPercent }}" aria-valuemin="0" aria-valuemax="100">@{{progressPercent}}%
+        </div>
+    </script>
+    {!! $view->render('@backend/views/import/template/' . $module . '-template.blade',['module' => $module]) !!}
+@stop
+@php($view->registerCssFile("@web/theme/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css",['depends' => [\yii\bootstrap\BootstrapAsset::className()], 'media' => 'print',],'css-print-theme'))
+@php($view->registerCssFile("@web/theme/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css",['depends' => [\yii\bootstrap\BootstrapAsset::className()], 'media' => 'print',],'css-print-theme'))
+@php($view->registerCssFile("@web/theme/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css",['depends' => [\yii\bootstrap\BootstrapAsset::className()], 'media' => 'print',],'css-print-theme'))
+
+@php($view->registerJsFile('@web/theme/js/import.js',['depends' =>  \yii\web\JqueryAsset::className()]))
+@php($view->registerJsFile('@web/theme/libs/datatables.net/js/jquery.dataTables.min.js',['depends' =>  \yii\web\JqueryAsset::className()]))
+@php($view->registerJsFile('@web/theme/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js',['depends' =>  \yii\web\JqueryAsset::className()]))
+@php($view->registerJsFile('@web/theme/libs/datatables.net-responsive/js/dataTables.responsive.min.js',['depends' =>  \yii\web\JqueryAsset::className()]))
+@php($view->registerJsFile('@web/theme/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',['depends' =>  \yii\web\JqueryAsset::className()]))
+@php($view->registerJsFile('@web/theme/libs/datatables.net-buttons/js/dataTables.buttons.min.js',['depends' =>  \yii\web\JqueryAsset::className()]))
+@php($view->registerJsFile('@web/theme/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',['depends' =>  \yii\web\JqueryAsset::className()]))
+@php($view->registerJsFile('@web/theme/libs/datatables.net-buttons/js/buttons.html5.min.js',['depends' =>  \yii\web\JqueryAsset::className()]))
+@php($view->registerJsFile('@web/theme/libs/datatables.net-keytable/js/dataTables.keyTable.min.js',['depends' =>  \yii\web\JqueryAsset::className()]))
+@php($view->registerJsFile('@web/theme/libs/datatables.net-select/js/dataTables.select.min.js',['depends' =>  \yii\web\JqueryAsset::className()]))

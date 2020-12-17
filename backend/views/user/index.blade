@@ -1,0 +1,91 @@
+@php
+    use yii\helpers\Url;
+    use kartik\grid\GridView;
+    use common\helper\Helper;
+    use common\helper\Component;
+    use kartik\grid\ActionColumn;
+    use backend\models\UserModel;
+@endphp
+@section('content')
+    <div class="card">
+        <div class="card-header">
+            <div class="card-widgets">
+                <button data-url="{{Url::toRoute(['user/create'])}}"
+                        role="modal-remote" class="btn btn-success btn-sm">
+                    <i class="fe-user-plus"></i> Tạo tài khoản
+                </button>
+            </div>
+            <h4 class="card-title"><i class="fe-users"></i> Tài khoản</h4>
+        </div>
+        <div class="card-body">
+            <?= GridView::widget([
+                'pjax' => true,
+                'layout' => '{items}{pager}',
+                'tableOptions' => [
+                    'class' => 'table-sm table-hover'
+                ],
+                'pjaxSettings' => [
+                    'neverTimeout' => true,
+                    'options' => [
+                        'id' => 'user-box'
+                    ]
+                ],
+                'perfectScrollbar' => true,
+                'dataProvider' => $dataProvider,
+                'columns' => [
+                    'id',
+                    'username',
+                    'email',
+                    [
+                        'attribute' => 'status',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return UserModel::userStatusLabel($model->status);
+                        }
+                    ],
+                    'role',
+                    [
+                        'attribute' => 'created_at',
+                        'value' => function ($model) {
+                            return Helper::dateFormat($model->created_at);
+                        }
+                    ],
+                    [
+                        'class' => ActionColumn::class,
+                        'template' => '{view}{update}{delete}',
+                        'width' => '10%',
+                        'buttons' => [
+                            'view' => function ($url, $model) {
+                                return Component::btnView($url, null, [
+                                    'role' => 'modal-remote'
+                                ]);
+                            },
+                            'update' => function ($url) {
+                                return Component::btnUpdate($url, null, [
+                                    'role' => 'modal-remote'
+                                ]);
+                            },
+
+                            'delete' => function ($url) {
+                                return Component::btnDelete($url);
+                            },
+
+                        ]
+                    ]
+                ]
+            ]) ?>
+        </div>
+    </div>
+
+    {!! $view->render('@backend/views/parts/Modal.blade',['id' => 'user-modal']) !!}
+@stop
+@section('pos_page')
+    <script>
+
+        $(document).on('click', '[role="modal-remote"]', function (event) {
+            let modal = new ModalRemote('#user-modal', '#user-box');
+            event.preventDefault();
+            modal.remote(this, null);
+        });
+    </script>
+@stop

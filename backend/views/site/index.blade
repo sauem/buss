@@ -1,0 +1,61 @@
+<?php
+
+/* @var $this yii\web\View */
+
+$this->title = 'Ads statistic report';
+use kartik\grid\GridView;
+?>
+@section('content')
+    <div class="card-box">
+        <?= GridView::widget([
+            'pjax' => true,
+            'layout' => '{items}{pager}',
+            'tableOptions' => [
+                'class' => 'table-sm table-hover'
+            ],
+            'pjaxSettings' => [
+                'neverTimeout' => true,
+                'options' => [
+                    'id' => 'user-box'
+                ]
+            ],
+            'perfectScrollbar' => true,
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                [
+                    'label' => 'Banner',
+                    'attribute' => 'banner_id',
+                    'value' => function ($model) {
+                        return $model->banner->title;
+                    }
+                ],
+                [
+                    'label' => 'Shown',
+                    'attribute' => 'shown',
+                    'value' => function ($model) {
+                        return $model->shown;
+                    }
+                ],
+                [
+                    'label' => 'Today',
+                    'value' => function ($model) {
+                        return $model->shown;
+                    }
+                ],
+                [
+                    'label' => 'Clicks',
+                    'attribute' => 'click',
+                    'value' => function ($model) {
+                        return $model->click;
+                    }
+                ],
+                [
+                    'label' => 'Today',
+                    'value' => function ($model) {
+                        return $model->shown;
+                    }
+                ],
+            ]
+        ]) ?>
+    </div>
+@stop

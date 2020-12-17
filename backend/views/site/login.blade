@@ -1,0 +1,20 @@
+@php
+
+    /* @var $this yii\web\View */
+    /* @var $form yii\bootstrap\ActiveForm */
+    /* @var $model \common\models\LoginForm */
+
+    use yii\helpers\Html;
+    use kartik\form\ActiveForm;
+    $this->title = 'Login';
+@endphp
+
+@section('content')
+    @php($form = ActiveForm::begin())
+    {!! $form->field($model,'username')->label('Tài khoản') !!}
+    {!! $form->field($model,'password')->passwordInput()->label('Mật khẩu') !!}
+    <div class="form-group mb-0 text-center">
+        {!! Html::submitButton('Đăng nhập',['class'=>'btn btn-primary btn-block']) !!}
+    </div>
+    @php(ActiveForm::end())
+@stop

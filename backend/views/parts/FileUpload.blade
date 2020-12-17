@@ -1,0 +1,30 @@
+<div class="upload-wraper">
+    <label>Hình ảnh {!! isset($label) ? $label : 'sản phẩm' !!}</label>
+    <div class="file-upload mb-2">
+        <div class="note" style="{{$model->avatar && $model->thumb ? 'display:none' : ''}}">
+            <i class="fe-upload"></i>
+            <p>Nhấn hoặc kéo thả ảnh vào đây</p>
+        </div>
+        <input
+                data-type="{!! isset($type) ? $type : '[image/jpeg,image/jpg,image/png]' !!}"
+                data-size="{!! isset($size) ? $size : '2000000' !!}"
+                onchange="handleChange(this)"
+                name="file" type="file">
+        <div class="image-view">
+            @if($model->thumb && $model->avatar)
+                <img src="{!! $model->avatar !!}" class="img-fluid">
+                <button style="position:absolute;top:0;right:0;bottom:0;left:0;margin:auto;"
+                        class="btn btn-xs"
+                        type="button"
+                        onclick="removeImage('{!! $model->avatar !!}')"><i class="fe-trash"></i></button>
+            @endif
+        </div>
+        {!! $form->field($model,$name)->hiddenInput(['class' => 'input-model'])->label(false) !!}
+    </div>
+
+    <strong class="text-warning">Note: </strong>
+    <ul>
+        <li><small>File upload không quá {!! isset($size) ? $size : '2MB' !!}</small></li>
+        <li><small>Định dạng file {!! isset($type) ? $type :  '*.jpg/jpeg/png' !!}</small></li>
+    </ul>
+</div>

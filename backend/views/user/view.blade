@@ -1,0 +1,19 @@
+@php
+    use yii\helpers\Url;
+    use kartik\form\ActiveForm;
+@endphp
+@section('content')
+    <div class="card-box border-success px-2 border-top">
+        <?= \kartik\detail\DetailView::widget([
+            'model' => $model,
+            'condensed'=>true,
+            'attributes'=>[
+                'username',
+                'email',
+                'status',
+                'created_at',
+                'password_hash'
+            ]
+        ])?>
+    </div>
+@stop

@@ -1,0 +1,191 @@
+.select2-container .select2-selection--single .select2-selection__rendered {
+  line-height: 25px;
+}
+
+.select2-container--krajee .select2-selection--single {
+  height: calc(1.5em + .9rem + 2px) !important;
+}
+
+.select2-container--krajee .select2-selection--single .select2-selection__arrow {
+  height: calc(1.5em + .9rem + 1px) !important;
+}
+
+.modal-dialog {
+  &.modal-xl {
+    max-width: 80vw;
+  }
+  &.modal-md{
+    max-width: 50vw;
+  }
+}
+
+.modal-body {
+  padding: 0 1rem;
+}
+
+.grid-view th, table th {
+  white-space: nowrap;
+}
+
+.text-middle {
+  vertical-align: middle !important;
+  text-align: center;
+}
+
+.text-18 {
+  font-size: 18px;
+}
+
+.card-box {
+  margin-bottom: 0px;
+}
+
+.import-area {
+  border: 5px dashed #ccc;
+  border-radius: 5px;
+  position: relative;
+  text-align: center;
+  display: flex;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 25px;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+
+  i {
+    font-size: 50px;
+  }
+
+  input[type='file'] {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+}
+
+.table-img-view {
+  width: 120px;
+  height: 65px;
+  overflow: hidden;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 2px dashed #ccc;
+
+  img {
+    border-radius: 5px;
+    display: flex;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+td.align-middle {
+  margin-top: .5rem;
+  display: flex;
+  align-items: center;
+}
+td .text-td{
+  p{
+    margin-bottom: 0px;
+    font-size: 12px;
+
+  }
+}
+
+.small-thumb {
+  width: 80px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 5px;
+  border: solid 1px #ccc;
+  img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    object-fit: cover;
+  }
+}
+
+.file-upload {
+  width: 100%;
+  min-height: 150px;
+  border-radius: 5px;
+  border: 5px dashed rgba(0, 0, 0, 0.1);
+  position: relative;
+  text-align: center;
+  display: flex;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.1);
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 40px;
+  }
+
+  input[type='file'] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  .image-view {
+    position: relative;
+    border-radius: 5px;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s ease-in-out;
+
+    img {
+      display: flex;
+      object-fit: cover;
+    }
+
+    .btn-remove-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      color: goldenrod;
+      right: 0;
+      margin: auto;
+    }
+
+    button {
+      outline: none;
+      display: none;
+
+      i {
+        color: white;
+        font-size: 25px;
+      }
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+
+      button {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (max-width: 467px) {
+  .modal-dialog {
+    &.modal-xl {
+      max-width: 100%;
+    }
+    &.modal-md{
+      max-width: 50vw;
+    }
+  }
+}

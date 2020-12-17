@@ -1,0 +1,12 @@
+@php
+    use yii\helpers\Url;
+    $view->registerJsFile("https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js",[
+    'depends' => [
+        \yii\web\JqueryAsset::className()
+        ]
+    ]);
+@endphp
+{!! $view->render("@backend/views/parts/FlashMessage.blade") !!}
+@yield('content')
+@yield('js_template')
+@yield('pos_page')

@@ -1,0 +1,120 @@
+<?php
+use backend\models\Banners;use kartik\grid\GridView;
+use common\helper\Component;
+use yii\helpers\ArrayHelper;use yii\helpers\Url;
+use common\helper\Helper;
+use kartik\grid\ActionColumn;
+?>
+@section('content')
+    <div class="card">
+        <div class="card-header">
+            <div class="card-widgets">
+                <button role="modal-remote" data-url="{!! Url::toRoute(['create']) !!}" class="btn btn-success btn-sm">
+                    <i class="fe-thumbs-up"></i> Thêm mới
+                </button>
+            </div>
+            <h4 class="card-title">Danh sách banner</h4>
+        </div>
+        <div class="card-body">
+            <?= GridView::widget([
+                'pjax' => true,
+                'layout' => '{items}{pager}',
+                'tableOptions' => [
+                    'class' => 'table-sm table-hover'
+                ],
+                'pjaxSettings' => [
+                    'neverTimeout' => true,
+                    'options' => [
+                        'id' => 'banner-box'
+                    ]
+                ],
+                'perfectScrollbar' => true,
+                'dataProvider' => $dataProvider,
+                'columns' => [
+                    [
+                        'label' => 'Sản phẩm',
+                        'attribute' => 'avatar',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            $html = '<div class="d-flex">';
+                            $html .= "<div class='table-img-view'><a target='_blank' href='" . ($model->href ? $model->href : '#') . "'><img src='{$model->avatar}' class='img-fluid'></a></div>";
+                            $html .= '<div class="text ml-2">';
+                            $html .= "<h6 class='m-1'><a target='_blank' href='" . ($model->href ? $model->href : '#') . "'>Tiêu đề: {$model->title}</a></h6>";
+                            $html .= "<h6 class='m-1'>Vị trí: " . ArrayHelper::getValue(Banners::POSITION, $model->position, '---') . "</h6>";
+                            $html .= "<h6 class='m-1'>Kiểu hiển thị: " . ArrayHelper::getValue(Banners::STYLE, $model->is_random, '---') . "</h6>";
+                            if ($model->width && $model->height) {
+                                $html .= "<h6>{$model->width}*{$model->height}</h6>";
+                            }
+                            $html .= '</div>';
+                            $html .= '</div>';
+                            return $html;
+                        }
+                    ],
+                    [
+                        'attribute' => 'page',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return Banners::pageLabel($model->page);
+                        }
+                    ],
+                    [
+                        'attribute' => 'active',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return Banners::bannerLabel($model->active);
+                        }
+                    ],
+                    'sort',
+                    [
+                        'attribute' => 'type',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return ArrayHelper::getValue(Banners::TYPE, $model->type, '---');
+                        }
+                    ],
+                    [
+                        'attribute' => 'device',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return ArrayHelper::getValue(Banners::DEVICE, $model->device, '---');
+                        }
+                    ],
+                    [
+                        'class' => ActionColumn::class,
+                        'template' => '{view}{update}{delete}',
+                        'width' => '10%',
+                        'buttons' => [
+                            'view' => function ($url, $model) {
+                                return Component::btnView($url, null, [
+                                    'role' => 'modal-remote'
+                                ]);
+                            },
+                            'update' => function ($url) {
+                                return Component::btnUpdate($url, null, [
+                                    'role' => 'modal-remote'
+                                ]);
+                            },
+
+                            'delete' => function ($url) {
+                                return Component::btnDelete($url);
+                            },
+
+                        ]
+                    ]
+                ]
+            ]) ?>
+        </div>
+    </div>
+    {!! $view->render('@backend/views/parts/Modal.blade', ['id' => 'banner-modal']) !!}
+@stop
+
+@section('pos_page')
+    <script>
+
+        $(document).on('click', '[role="modal-remote"]', function (event) {
+            let modal = new ModalRemote('#banner-modal', '#banner-box');
+            event.preventDefault();
+            modal.remote(this, null);
+        });
+    </script>
+@stop

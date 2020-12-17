@@ -1,0 +1,54 @@
+<script id="contact-template" type="text/x-handlebars-template">
+    <button onclick="actionSave('{{$module}}')" class="btn btn-sm float-right btn-success"><i class="fe-save"></i> Lưu
+        liên hệ
+    </button>
+    <table id="contact-table" class="table table-sm table-hover">
+        <thead>
+        <tr>
+            <th>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input">
+                    <label class="custom-control-label">&nbsp;</label>
+                </div>
+            </th>
+            <th>Hành động</th>
+            <th>Ngày đặt</th>
+            <th>Khách hàng</th>
+            <th>Địa chỉ</th>
+            <th>Yêu cầu</th>
+            <th>Đối tác</th>
+            <th>Ghi chú</th>
+            <th>Loại contact</th>
+        </tr>
+        </thead>
+        <tbody>
+        @{{#each this}}
+        <tr data-key="@{{ @index }}">
+            <td>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input">
+                    <label class="custom-control-label">&nbsp;</label>
+                </div>
+            </td>
+            <td>
+                <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+            </td>
+            <td>@{{dateFormat register_time}}</td>
+            <td>
+                <p class="mb-0">@{{name}}</p>
+                <p class="mb-0">@{{phone}}</p>
+            </td>
+            <td>
+                <p class="mb-0">address : @{{address}}</p>
+                <p class="mb-0">zipcode : @{{zipcode}}</p>
+            </td>
+            <td>@{{ option }}</td>
+            <td>@{{ partner }}</td>
+            <td>@{{ note }}</td>
+            <td>@{{ type }}</td>
+        </tr>
+        @{{/each}}
+        </tbody>
+    </table>
+</script>
