@@ -146,6 +146,7 @@ class Banners extends \common\models\BaseModel
             'bellow_post' => 'Hiển thị tại dòng',
             'device' => 'Thiết bị',
             'domain' => 'Domain',
+            'thumb' => 'Hình ảnh',
             'youtube_url' => 'Link video',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
