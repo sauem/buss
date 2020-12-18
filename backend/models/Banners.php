@@ -110,7 +110,7 @@ class Banners extends \common\models\BaseModel
         return [
             [['height', 'width'], 'number'],
             [['sort', 'type', 'is_random', 'bellow_post', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'thumb', 'page', 'position', 'active', 'device', 'type', 'sort', 'is_random'], 'required'],
+            [['title', 'thumb', 'page', 'position', 'active', 'device', 'type', 'is_random'], 'required'],
             [['title', 'href', 'domain'], 'string', 'max' => 255],
             [['position'], 'string', 'max' => 100],
             [['active', 'device'], 'string', 'max' => 50],
