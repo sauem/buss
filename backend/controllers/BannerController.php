@@ -62,7 +62,7 @@ class BannerController extends BaseController
         }
         return static::responseRemote('create.blade', [
             'model' => $model
-        ], 'Cập nhật banner', $this->footer());
+        ], 'Cập nhật banner', $this->footer(),'md');
     }
 
     /**

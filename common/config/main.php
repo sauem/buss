@@ -19,11 +19,11 @@ return [
                 ],
             ],
         ],
-        'formatter' => [
-            'class' => 'yii\i18n\formatter',
-            'thousandSeparator' => ',',
-            'decimalSeparator' => '.',
-        ],
+//        'formatter' => [
+//            'class' => 'yii\i18n\formatter',
+//            'thousandSeparator' => ',',
+//            'decimalSeparator' => '.',
+//        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
