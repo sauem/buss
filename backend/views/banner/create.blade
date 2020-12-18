@@ -7,7 +7,7 @@ use backend\models\Banners;
 ?>
 @section('content')
     <?php $form = ActiveForm::begin(); ?>
-    {!! $form->errorSummary($model) !!}
+    {!! $form->errorSummary($model,['class' => 'text-danger']) !!}
     <div class="row">
         <div class="col-md-6">
             <?= $view->render('@backend/views/parts/FileUpload.blade', [
