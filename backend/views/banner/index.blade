@@ -81,14 +81,9 @@ use kartik\grid\ActionColumn;
                     ],
                     [
                         'class' => ActionColumn::class,
-                        'template' => '{view}{update}{delete}',
+                        'template' => '{update}{delete}',
                         'width' => '10%',
                         'buttons' => [
-                            'view' => function ($url, $model) {
-                                return Component::btnView($url, null, [
-                                    'role' => 'modal-remote'
-                                ]);
-                            },
                             'update' => function ($url) {
                                 return Component::btnUpdate($url, null, [
                                     'role' => 'modal-remote'
