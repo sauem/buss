@@ -29,18 +29,6 @@
                     ],
                 ]) ?>
             </div>
-            <div class="col-md-6">
-                <?= $form->field($model, 'phone_of_day')->textInput(['type' => 'number'])->label('Số điện thoại/ngày') ?>
-            </div>
-            <div class="col-md-6">
-                <?= $form->field($model, 'country')->widget(Select2::className(), [
-                    'data' => Helper::countries(),
-                    'options' => ['placeholder' => 'Chọn quốc gia...'],
-                    'pluginOptions' => [
-                        'allowClear' => true
-                    ],
-                ])->label('Quốc gia') ?>
-            </div>
         </div>
         @php(ActiveForm::end())
     </div>
