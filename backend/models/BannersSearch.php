@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\helper\Helper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Banners;
@@ -49,7 +50,7 @@ class BannersSearch extends Banners
             'query' => $query,
         ]);
 
-        $this->load($params);
+        $this->load($params, '');
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -69,14 +70,13 @@ class BannersSearch extends Banners
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'position', $this->position])
-            ->andFilterWhere(['like', 'href', $this->href])
-            ->andFilterWhere(['like', 'active', $this->active])
-            ->andFilterWhere(['like', 'page', $this->page])
-            ->andFilterWhere(['like', 'domain', $this->domain]);
-
+        $query->andFilterWhere(['LIKE', 'title', $this->title])
+            ->andFilterWhere(['LIKE', 'position', $this->position])
+            ->andFilterWhere(['LIKE', 'href', $this->href])
+            ->andFilterWhere(['=', 'active', $this->active])
+            ->andFilterWhere(['LIKE', 'page', $this->page])
+            ->andFilterWhere(['LIKE', 'device', $this->device]);
+        $query->with('media');
         return $dataProvider;
     }
 }

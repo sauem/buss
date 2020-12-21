@@ -22,22 +22,22 @@ use yii\helpers\Html;
  * @property int|null $type
  * @property int|null $is_random
  * @property int|null $bellow_post
- * @property string|null $domain
  * @property string|null $device
+ * @property string|null $domain
  * @property string|null $youtube_url
  * @property int $created_at
  * @property int $updated_at
+ *
+ * @property StatisticReport[] $statisticReports
  */
 class Banners extends \common\models\BaseModel
 {
     /**
      * {@inheritdoc}
      */
-    public $device;
     public $thumb;
     public $avatar;
     public $public;
-    public $youtube_url;
 
     const STATUS_ACTIVE = 'active';
     const STATUS_DEACTIVE = 'deactive';
@@ -110,7 +110,7 @@ class Banners extends \common\models\BaseModel
         return [
             [['height', 'width'], 'number'],
             [['sort', 'type', 'is_random', 'bellow_post', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'thumb', 'page', 'position', 'active', 'device', 'type', 'is_random'], 'required'],
+            [['title', 'page', 'position', 'active', 'device', 'type', 'is_random'], 'required'],
             [['title', 'href', 'domain'], 'string', 'max' => 255],
             [['position'], 'string', 'max' => 100],
             [['active', 'device'], 'string', 'max' => 50],
@@ -123,6 +123,10 @@ class Banners extends \common\models\BaseModel
      */
     public function beforeSave($insert)
     {
+        if ($this->type === self::TYPE_IMAGE && !$this->thumb) {
+            $this->addError('thumb', 'Hình ảnh không được để trống!');
+            return false;
+        }
         if ($this->page && is_array($this->page)) {
             $this->page = implode(',', $this->page);
         }
@@ -199,5 +203,9 @@ class Banners extends \common\models\BaseModel
             $html = '---';
         }
         return $html;
+    }
+    public function getStatisticReports()
+    {
+        return $this->hasMany(StatisticReport::className(), ['banner_id' => 'id']);
     }
 }

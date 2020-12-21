@@ -26,12 +26,14 @@ class BannerController extends BaseController
         try {
             if (\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post())) {
                 if ($model->save()) {
-                    MediaObj::saveObject($model->thumb, $model->id, MediaObj::OBJECT_BANNER);
+                    if ($model->type == Banners::TYPE_IMAGE) {
+                        MediaObj::saveObject($model->thumb, $model->id, MediaObj::OBJECT_BANNER);
+                    }
                     return static::responseSuccess();
                 }
             }
         } catch (BadRequestHttpException $e) {
-            \Yii::$app->session->setFlash('danger', Helper::firstError($model));
+            \Yii::$app->session->setFlash('danger', $e->getMessage());
         }
 
         return static::responseRemote('create.blade', [
@@ -53,16 +55,18 @@ class BannerController extends BaseController
         try {
             if (\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post())) {
                 if ($model->save()) {
-                    MediaObj::saveObject($model->thumb, $model->id, MediaObj::OBJECT_BANNER);
+                    if ($model->type == Banners::TYPE_IMAGE) {
+                        MediaObj::saveObject($model->thumb, $model->id, MediaObj::OBJECT_BANNER);
+                    }
                     return static::responseSuccess();
                 }
             }
         } catch (BadRequestHttpException $e) {
-            \Yii::$app->session->setFlash('danger', Helper::firstError($model));
+            \Yii::$app->session->setFlash('danger', $e->getMessage());
         }
         return static::responseRemote('create.blade', [
             'model' => $model
-        ], 'Cập nhật banner', $this->footer(),'md');
+        ], 'Cập nhật banner', $this->footer(), 'md');
     }
 
     /**
