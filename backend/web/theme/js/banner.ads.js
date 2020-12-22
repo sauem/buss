@@ -78,8 +78,6 @@ function initAds(page = 'home') {
             url: url,
             cache: false,
             headers: {'Content-Type': 'application/json'},
-        }).then(response => response.json()).catch(e => {
-            throw e.message;
         });
     }
     // get random item from array image random
