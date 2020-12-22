@@ -6,9 +6,12 @@ use backend\models\Banners;
 use backend\models\BannersSearch;
 use backend\models\StatisticReport;
 use common\helper\Helper;
+use mdm\admin\components\AccessControl;
 use Yii;
+use yii\filters\auth\HttpBearerAuth;
+use yii\filters\Cors;
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
+use yii\rest\Controller;
 
 /**
  * Default controller for the `api` module
@@ -18,6 +21,17 @@ class DefaultController extends Controller
     /**
      * @return array
      */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        unset($behaviors['authenticator']);
+        unset($behaviors['access']);
+        $behaviors['corsFilter'] = [
+            'class' => Cors::class,
+        ];
+        return $behaviors;
+    }
+
     function actionGetBanner()
     {
         $searchModel = new BannersSearch();

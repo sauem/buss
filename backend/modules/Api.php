@@ -2,6 +2,9 @@
 
 namespace backend\modules;
 
+use mdm\admin\components\AccessControl;
+use yii\filters\auth\HttpBearerAuth;
+use yii\filters\Cors;
 use yii\web\Response;
 
 /**
@@ -20,8 +23,7 @@ class Api extends \yii\base\Module
     public function init()
     {
         parent::init();
-        \Yii::$app->response->format = Response::FORMAT_JSON;
-
         // custom initialization code goes here
     }
+
 }
