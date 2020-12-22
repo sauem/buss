@@ -147,7 +147,7 @@ function initAds(page = 'home') {
                     return false;
                 }
                 let item = this.getRandomObject(_random);
-                $("header").prepend('<h1>HELLO</h1>');
+                $("header").prepend(this.renderImage(item));
             }
         }
     }
