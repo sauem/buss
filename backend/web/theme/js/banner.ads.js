@@ -127,6 +127,13 @@ function initAds(page = 'home') {
         link.appendChild(image);
         return link;
     }
+    this.isEmpty = function (item) {
+        if (typeof top !== "undefined" && top.length > 0) {
+            return false;
+        }
+        return true;
+    }
+
     //Generate and display banner to frontend view
     this.renderAds = function (page, data) {
 
@@ -136,7 +143,7 @@ function initAds(page = 'home') {
         }
         let positions = this.groupBy(data, 'position');
         const {top, bottom, right, left, content} = positions;
-        if (typeof top !== "undefined" && top.length > 0) {
+        if (!this.isEmpty(top)) {
             let group = this.groupBy(top, 'is_random');
             let _random = group[0];
             let _static = group[1];
@@ -150,7 +157,7 @@ function initAds(page = 'home') {
                 $("#main").prepend(this.renderImage(item));
             }
         }
-        if (typeof right !== "undefined" && right.length > 0) {
+        if (!this.isEmpty(right)) {
             let group = this.groupBy(right, 'is_random');
             let _random = group[0];
             let _static = group[1];
@@ -162,6 +169,21 @@ function initAds(page = 'home') {
                 }
                 let item = this.getRandomObject(_random);
                 $("#sticky-sidebar").prepend(this.renderImage(item));
+            }
+        }
+
+        if (!this.isEmpty(bottom)) {
+            let group = this.groupBy(bottom, 'is_random');
+            let _random = group[0];
+            let _static = group[1];
+            if (typeof _static !== "undefined" && _static.length > 0) {
+                $('.block_cate:last-child').prepend(this.renderImage(_static[0]), null);
+            } else {
+                if (typeof _random === "undefined") {
+                    return false;
+                }
+                let item = this.getRandomObject(_random);
+                $(".block_cate:last-child").prepend(this.renderImage(item));
             }
         }
     }
