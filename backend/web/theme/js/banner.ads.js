@@ -73,8 +73,10 @@ function initAds(page = 'home') {
             device: instance.getUserAgent(),
             page: page
         });
-        return fetch(url, {
-            method: 'GET',
+        return $.ajax({
+            type: 'GET',
+            url: url,
+            cache: false,
             headers: {'Content-Type': 'application/json'},
         }).then(response => response.json()).catch(e => {
             throw e.message;
@@ -132,7 +134,7 @@ function initAds(page = 'home') {
             return false;
         }
         let positions = this.groupBy(data, 'position');
-       console.log(positions)
+        console.log(positions)
     }
     this.init = async function () {
         try {
