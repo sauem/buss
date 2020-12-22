@@ -135,7 +135,11 @@ function initAds(page = 'home') {
             return false;
         }
         let positions = this.groupBy(data, 'position');
-        console.log(positions)
+        const {top, bottom, right, left, content} = positions;
+        if (typeof top !== "undefined" && top.length > 0) {
+            let group = this.groupBy(top, 'is_random');
+            console.log(group);
+        }
     }
     this.init = async function () {
         try {
