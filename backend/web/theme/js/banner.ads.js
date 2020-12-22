@@ -128,7 +128,7 @@ function initAds(page = 'home') {
         return link;
     }
     this.isEmpty = function (item) {
-        if (typeof top !== "undefined" && top.length > 0) {
+        if (typeof item !== "undefined" && item.length > 0) {
             return false;
         }
         return true;
