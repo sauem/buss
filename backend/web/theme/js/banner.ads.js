@@ -143,12 +143,13 @@ function initAds(page = 'home') {
             if (typeof _static !== "undefined" && _static.length > 0) {
                 header.insertBefore(this.renderImage(_static[0]), null);
             } else {
+                if (typeof _random === "undefined") {
+                    return false;
+                }
                 let item = this.getRandomObject(_random);
                 header.insertBefore(this.renderImage(item), null);
+                header.insertBefore('adsáđá', null);
             }
-            console.log('random', _random);
-            console.log('static', _static);
-            console.log('rand', this.getRandomObject(_random));
         }
     }
     this.init = async function () {
