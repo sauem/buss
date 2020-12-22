@@ -24,6 +24,9 @@ class StatisticReport extends \common\models\BaseModel
     /**
      * {@inheritdoc}
      */
+    const TYPE_CLICK = 'click';
+    const TYPE_SHOWN = 'shown';
+
     public static function tableName()
     {
         return 'statistic_report';

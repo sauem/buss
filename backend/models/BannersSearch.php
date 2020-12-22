@@ -19,7 +19,7 @@ class BannersSearch extends Banners
     {
         return [
             [['id', 'sort', 'type', 'is_random', 'bellow_post', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'position', 'href', 'active', 'page', 'domain'], 'safe'],
+            [['title', 'position', 'href', 'active', 'page', 'device', 'domain', 'youtube_url'], 'safe'],
             [['height', 'width'], 'number'],
         ];
     }
@@ -50,7 +50,7 @@ class BannersSearch extends Banners
             'query' => $query,
         ]);
 
-        $this->load($params, '');
+        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -70,12 +70,14 @@ class BannersSearch extends Banners
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-        $query->andFilterWhere(['LIKE', 'title', $this->title])
-            ->andFilterWhere(['LIKE', 'position', $this->position])
-            ->andFilterWhere(['LIKE', 'href', $this->href])
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'position', $this->position])
+            ->andFilterWhere(['like', 'href', $this->href])
             ->andFilterWhere(['=', 'active', $this->active])
             ->andFilterWhere(['LIKE', 'page', $this->page])
-            ->andFilterWhere(['LIKE', 'device', $this->device]);
+            ->andFilterWhere(['=', 'device', $this->device])
+            ->andFilterWhere(['like', 'domain', $this->domain])
+            ->andFilterWhere(['like', 'youtube_url', $this->youtube_url]);
         $query->with('media');
         return $dataProvider;
     }

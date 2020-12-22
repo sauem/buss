@@ -10,6 +10,7 @@ use backend\models\ContactsAssignment;
 use backend\models\Media;
 use backend\models\Products;
 use backend\models\ProductsSearch;
+use backend\models\StatisticReport;
 use backend\models\UploadForm;
 use common\helper\Helper;
 use Illuminate\Support\Arr;
@@ -73,11 +74,53 @@ class AjaxController extends BaseController
     function actionGetBanner()
     {
         $searchModel = new BannersSearch();
-        $dataProvider = $searchModel->search(array_merge(\Yii::$app->request->queryParams, [
-            'BannersSearch' => [
+        $dataProvider = $searchModel->search([
+            'BannersSearch' => array_merge([
                 'active' => Banners::STATUS_ACTIVE,
-            ]
-        ]));
-        return $dataProvider->query->asArray()->all();
+            ], \Yii::$app->request->queryParams)
+        ]);
+        $result = $dataProvider->query->asArray()->all();
+        return $result;
+    }
+
+    /**
+     * @throws BadRequestHttpException
+     */
+
+    function actionCounter()
+    {
+        $bannerId = \Yii::$app->request->post('bannerKey'); // banner key
+        $page = \Yii::$app->request->post('page'); // page shown
+        $type = \Yii::$app->request->post('type'); //click or show
+
+        $banner = Banners::findOne($bannerId);
+        if (!$banner) {
+            throw new BadRequestHttpException('Không tìm thấy link!');
+        }
+        try {
+            $model = StatisticReport::findOne(['banner_id' => $bannerId]);
+            if (!$model) {
+                $model = new StatisticReport();
+            }
+            $model->banner_id = $bannerId;
+            switch ($type) {
+                case StatisticReport::TYPE_CLICK:
+                    $model->click += $model->click;
+                    break;
+                case StatisticReport::TYPE_SHOWN:
+                    $model->shown += $model->shown;
+                    break;
+            }
+            $model->ip = Yii::$app->getRequest()->getUserIP();
+            if (!$model->save()) {
+                throw new BadRequestHttpException(Helper::firstError($model));
+            }
+        } catch (\Exception $exception) {
+            throw new BadRequestHttpException($exception->getMessage());
+        }
+        return [
+            'success' => 1,
+            'redirect' => $banner->href
+        ];
     }
 }
