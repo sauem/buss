@@ -24,6 +24,9 @@ class BaseController extends Controller
     public function behaviors()
     {
         return [
+            'corsFilter' => [
+                'class' => \yii\filters\Cors::className(),
+            ],
             'access' => [
                 'class' => AccessControl::class,
                 'rules' => [
