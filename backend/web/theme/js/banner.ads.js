@@ -77,7 +77,10 @@ function initAds(page = 'home') {
             type: 'GET',
             url: url,
             cache: false,
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
         });
     }
     // get random item from array image random
