@@ -138,7 +138,14 @@ function initAds(page = 'home') {
         const {top, bottom, right, left, content} = positions;
         if (typeof top !== "undefined" && top.length > 0) {
             let group = this.groupBy(top, 'is_random');
-            console.log(group);
+            let _random = group[0];
+            let _static = group[1];
+            if (typeof _static && _static.length > 0) {
+                header.insertBefore(this.renderImage(_static[0]), null);
+            } else {
+                let item = this.getRandomObject(_random);
+                header.insertBefore(this.renderImage(item), null);
+            }
         }
     }
     this.init = async function () {
