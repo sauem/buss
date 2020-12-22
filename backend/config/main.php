@@ -16,6 +16,9 @@ return [
     'bootstrap' => ['log'],
     'layout' => 'main.blade',
     'modules' => [
+        'api' => [
+            'class' => 'backend\modules\Api',
+        ],
         'gii' => [
             'class' => \yii\gii\Module::class,
         ],

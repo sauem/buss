@@ -12,7 +12,7 @@ const STYLE_RANDOM = "1";
 const STYLE_STATIC = "0";
 const DEVICE_MOBILE = 'mobile';
 const DEVICE_DESKTOP = 'desktop';
-const API_URL = 'https://ads.businessstyle.vn/ajax/get-banner';
+const API_URL = 'https://ads.businessstyle.vn/api/default/get-banner';
 const BASE_URL = 'https://ads.businessstyle.vn';
 
 
