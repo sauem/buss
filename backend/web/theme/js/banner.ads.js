@@ -147,7 +147,7 @@ function initAds(page = 'home') {
                     return false;
                 }
                 let item = this.getRandomObject(_random);
-                $("header.nav").prepend(this.renderImage(item));
+                $("#main").prepend(this.renderImage(item));
             }
         }
     }
