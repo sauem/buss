@@ -146,6 +146,9 @@ function initAds(page = 'home') {
                 let item = this.getRandomObject(_random);
                 header.insertBefore(this.renderImage(item), null);
             }
+            console.log('random', _random);
+            console.log('static', _static);
+            console.log('rand', this.getRandomObject(_random));
         }
     }
     this.init = async function () {
