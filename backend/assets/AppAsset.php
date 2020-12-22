@@ -36,7 +36,6 @@ class AppAsset extends AssetBundle
         'js/pages/form-wizard.init.js',
         'js/app.min.js',
         'js/main.js',
-        'js/banner.ads.js',
         'js/upload.js',
         ['js/ModalRemote.js', 'async' => true],
         'js/func.js',
