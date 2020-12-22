@@ -141,13 +141,27 @@ function initAds(page = 'home') {
             let _random = group[0];
             let _static = group[1];
             if (typeof _static !== "undefined" && _static.length > 0) {
-                header.insertBefore(this.renderImage(_static[0]), null);
+                $("#main").prepend(this.renderImage(_static[0]), null);
             } else {
                 if (typeof _random === "undefined") {
                     return false;
                 }
                 let item = this.getRandomObject(_random);
                 $("#main").prepend(this.renderImage(item));
+            }
+        }
+        if (typeof right !== "undefined" && right.length > 0) {
+            let group = this.groupBy(right, 'is_random');
+            let _random = group[0];
+            let _static = group[1];
+            if (typeof _static !== "undefined" && _static.length > 0) {
+                $('#sticky-sidebar').prepend(this.renderImage(_static[0]), null);
+            } else {
+                if (typeof _random === "undefined") {
+                    return false;
+                }
+                let item = this.getRandomObject(_random);
+                $("#sticky-sidebar").prepend(this.renderImage(item));
             }
         }
     }
