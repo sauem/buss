@@ -24,8 +24,6 @@ class DefaultController extends Controller
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-        unset($behaviors['authenticator']);
-        unset($behaviors['access']);
         $behaviors['corsFilter'] = [
             'class' => Cors::class,
         ];

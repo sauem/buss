@@ -97,7 +97,7 @@ return [
         'allowActions' => [
             'rbac/*',
             'site/logout',
-            'ajax/*',
+            'api/*',
             'site/login'
         ]
     ],
