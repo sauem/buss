@@ -26,7 +26,7 @@ use kartik\grid\GridView;
                     'label' => 'Banner',
                     'attribute' => 'banner_id',
                     'value' => function ($model) {
-                        return $model->banner->title;
+                        return !isset($model->banner) ? '--' : $model->banner->title;
                     }
                 ],
                 [
