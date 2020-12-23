@@ -143,8 +143,9 @@ function initAds(page = 'home') {
         return true;
     }
     this.setInnerPost = function (item) {
-        let bellow_post = item.bellow_post ? item.bellow_post : 2;
-        $(".contain").find(`bellow_post:nth-child(${bellow_post})`).append(this.renderImage(item));
+        let bellow_post = item.bellow_post && typeof item.below_post !== "undefined" ? parseInt(item.bellow_post) : 2;
+
+        $(".contain").find(`p:nth-child(${bellow_post})`).append(this.renderImage(item));
     }
     this.setPosition = function (data, element, prepend = true) {
         let group = this.groupBy(data, 'is_random');
