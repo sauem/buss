@@ -35,7 +35,7 @@ function initAds(page = 'home') {
         return "desktop";
     }
     // api request count
-    this.countRequest = async function (bannerKey, page, type = 'click') {
+    this.countRequest = async function (bannerKey, page = null, type = 'click') {
         return $.ajax({
             type: 'POST',
             data: {bannerKey, page, type},
@@ -48,6 +48,7 @@ function initAds(page = 'home') {
     this.countShown = async function (bannerId, page) {
         try {
             const res = await this.countRequest(bannerId, page, 'shown');
+            console.log(res);
         } catch (e) {
             console.log(e);
             console.log(JSON.parse(e.responseText).message);
@@ -107,6 +108,7 @@ function initAds(page = 'home') {
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
         iframe.setAttribute('allowfullscreen', '1');
+        this.countShown(item.id, null);
         return iframe;
     }
     this.renderImage = function (item) {
@@ -125,6 +127,7 @@ function initAds(page = 'home') {
         }
         link.setAttribute('href', href ? href : '#');
         link.appendChild(image);
+        this.countShown(item.id, null);
         return link;
     }
     this.isEmpty = function (item) {
@@ -163,7 +166,7 @@ function initAds(page = 'home') {
             this.setPosition(top, $('#sticky-sidebar'));
         }
         if (!this.isEmpty(bottom)) {
-            this.setPosition(top, $('.block_cate:last-child'));
+            this.setPosition(top, $('.block_cate').last());
         }
     }
     this.init = async function () {
