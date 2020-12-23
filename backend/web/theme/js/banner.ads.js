@@ -128,6 +128,11 @@ function initAds(page = 'home') {
         link.setAttribute('href', href ? href : '#');
         link.appendChild(image);
         this.countShown(item.id, null);
+        link.addEventListener('click', function (evt) {
+            evt.preventDefault();
+            alert('click banner');
+            return false;
+        })
         return link;
     }
     this.isEmpty = function (item) {
