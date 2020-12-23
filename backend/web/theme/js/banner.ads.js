@@ -144,8 +144,7 @@ function initAds(page = 'home') {
     }
     this.setInnerPost = function (item) {
         let bellow_post = item.bellow_post ? item.bellow_post : 2;
-        let lines = $("#ptest").val().split("\n");
-        console.log(lines);
+        $(".contain").find(`bellow_post:nth-child(${bellow_post})`).append(this.renderImage(item));
     }
     this.setPosition = function (data, element, prepend = true) {
         let group = this.groupBy(data, 'is_random');
