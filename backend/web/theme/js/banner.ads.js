@@ -160,6 +160,7 @@ function initAds(page = 'home') {
             return false;
         }
         let positions = this.groupBy(data, 'position');
+        console.log(positions);
         const {top, bottom, right, left, content} = positions;
         if (!this.isEmpty(top)) {
             this.setPosition(top, $('#main'));
