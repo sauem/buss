@@ -176,3 +176,15 @@ function initAds(page = 'home') {
     }
 
 }
+
+$(document).ready(function () {
+    let page = 'home';
+    let url = window.location.href;
+    if (url !== 'https://www.businessstyle.vn/' || url !== 'https://www.businessstyle.vn') {
+        page = 'archive';
+    }
+    if (url.includes('.html') || url.includes('.htm')) {
+        page = 'post';
+    }
+    new initAds(page).init();
+});
