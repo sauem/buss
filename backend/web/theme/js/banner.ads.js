@@ -57,7 +57,7 @@ function initAds(page = 'home') {
     //counter banner click
     this.countClick = async function (bannerId, page) {
         try {
-            const res = await this.countRequest(bannerId, page, 'shown');
+            const res = await this.countRequest(bannerId, page, 'click');
             if (res.success) {
                 window.location.href = res.redirect;
             }
@@ -113,6 +113,7 @@ function initAds(page = 'home') {
     }
     this.renderImage = function (item) {
         let {media, title, href, width, height} = item;
+        let instance = this;
         let url = BASE_URL + media.media.url;
         let image = document.createElement('img');
         let link = document.createElement('a');
@@ -130,7 +131,7 @@ function initAds(page = 'home') {
         this.countShown(item.id, null);
         link.addEventListener('click', function (evt) {
             evt.preventDefault();
-            alert('click banner');
+            instance.countClick(item.id, null);
             return false;
         })
         return link;
