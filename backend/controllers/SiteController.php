@@ -37,10 +37,9 @@ class SiteController extends BaseController
                 ->addSelect([
                     'SUM(click) as click',
                     'SUM(shown) as shown'
-                ])
-                ->with('banner')->groupBy('banner_id')
+                ])->groupBy('banner_id')
         ]);
-        return $this->render('index.blade',[
+        return $this->render('index.blade', [
             'dataProvider' => $dataProvider
         ]);
     }
