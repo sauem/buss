@@ -40,7 +40,7 @@ class StatisticReport extends \common\models\BaseModel
         return [
             [['banner_id', 'click', 'shown', 'created_at', 'updated_at'], 'integer'],
             [['ref_url'], 'string'],
-            [['created_at', 'updated_at'], 'required'],
+            [['banner_id'], 'required'],
             [['ip', 'geolocation'], 'string', 'max' => 255],
             [['banner_id'], 'exist', 'skipOnError' => true, 'targetClass' => Banners::className(), 'targetAttribute' => ['banner_id' => 'id']],
         ];
