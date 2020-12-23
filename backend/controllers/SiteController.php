@@ -36,7 +36,7 @@ class SiteController extends BaseController
             'query' => StatisticReport::find()
                 ->innerJoin('banners', 'banners.id = statistic_report.banner_id')
                 ->addSelect([
-                    'banners.title',
+                    'banners.*',
                     'SUM(click) as click',
                     'SUM(shown) as shown',
                 ])->groupBy('banner_id')
