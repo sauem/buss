@@ -34,9 +34,9 @@ class SiteController extends BaseController
     {
         $dataProvider = new ActiveDataProvider([
             'query' => StatisticReport::find()
-                ->innerJoin('banner', 'banner.id = statistic_report.banner_id')
+                ->innerJoin('banners', 'banners.id = statistic_report.banner_id')
                 ->addSelect([
-                    'banner.title',
+                    'banners.title',
                     'SUM(click) as click',
                     'SUM(shown) as shown',
                 ])->groupBy('banner_id')
