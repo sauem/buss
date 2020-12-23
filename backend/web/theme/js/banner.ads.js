@@ -142,6 +142,11 @@ function initAds(page = 'home') {
         }
         return true;
     }
+    this.setInnerPost = function (item) {
+        let bellow_post = item.bellow_post ? item.bellow_post : 2;
+        let lines = $("#ptest").val().split("\n");
+        console.log(lines);
+    }
     this.setPosition = function (data, element, prepend = true) {
         let group = this.groupBy(data, 'is_random');
         let _random = group[0];
@@ -154,6 +159,10 @@ function initAds(page = 'home') {
                 return false;
             }
             item = this.getRandomObject(_random);
+        }
+        if (item.position === POSITION_CONTENT) {
+            this.setInnerPost(item);
+            return false;
         }
         if (!prepend) {
             element.append(this.renderImage(item));
@@ -176,6 +185,9 @@ function initAds(page = 'home') {
         }
         if (!this.isEmpty(right)) {
             this.setPosition(right, $('#sticky-sidebar'));
+        }
+        if (!this.isEmpty(content)) {
+            this.setPosition(content, null);
         }
         if (!this.isEmpty(bottom)) {
             let _el = null,

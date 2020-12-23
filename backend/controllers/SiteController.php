@@ -41,7 +41,7 @@ class SiteController extends BaseController
                     'statistic_report.banner_id',
                     'SUM(click) as click',
                     'SUM(shown) as shown',
-                ])->groupBy('statistic_report.banner_id')
+                ])->groupBy(['statistic_report.banner_id'])
         ]);
         return $this->render('index.blade', [
             'dataProvider' => $dataProvider
