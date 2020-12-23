@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\StatisticReport;
+use common\helper\Helper;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -36,10 +37,11 @@ class SiteController extends BaseController
             'query' => StatisticReport::find()
                 ->innerJoin('banners', 'banners.id = statistic_report.banner_id')
                 ->addSelect([
-                    'banners.*',
+                    'banners.id',
+                    'statistic_report.banner_id',
                     'SUM(click) as click',
                     'SUM(shown) as shown',
-                ])->groupBy('banner_id')
+                ])->groupBy('statistic_report.banner_id')
         ]);
         return $this->render('index.blade', [
             'dataProvider' => $dataProvider
