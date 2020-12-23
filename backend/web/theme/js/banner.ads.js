@@ -39,7 +39,7 @@ function initAds(page = 'home') {
         return $.ajax({
             type: 'POST',
             data: {bannerKey, page, type},
-            url: BASE_URL + '/ajax/counter',
+            url: BASE_URL + '/api/default/counter',
             cache: false
         });
     }
