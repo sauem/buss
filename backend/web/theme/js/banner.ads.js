@@ -133,7 +133,20 @@ function initAds(page = 'home') {
         }
         return true;
     }
-
+    this.setPosition = function (data, element) {
+        let group = this.groupBy(data, 'is_random');
+        let _random = group[0];
+        let _static = group[1];
+        if (typeof _static !== "undefined" && _static.length > 0) {
+            element.prepend(this.renderImage(_static[0]), null);
+        } else {
+            if (typeof _random === "undefined") {
+                return false;
+            }
+            let item = this.getRandomObject(_random);
+            element.prepend(this.renderImage(item));
+        }
+    }
     //Generate and display banner to frontend view
     this.renderAds = function (page, data) {
 
@@ -144,47 +157,13 @@ function initAds(page = 'home') {
         let positions = this.groupBy(data, 'position');
         const {top, bottom, right, left, content} = positions;
         if (!this.isEmpty(top)) {
-            let group = this.groupBy(top, 'is_random');
-            let _random = group[0];
-            let _static = group[1];
-            if (typeof _static !== "undefined" && _static.length > 0) {
-                $("#main").prepend(this.renderImage(_static[0]), null);
-            } else {
-                if (typeof _random === "undefined") {
-                    return false;
-                }
-                let item = this.getRandomObject(_random);
-                $("#main").prepend(this.renderImage(item));
-            }
+            this.setPosition(top, $('#main'));
         }
         if (!this.isEmpty(right)) {
-            let group = this.groupBy(right, 'is_random');
-            let _random = group[0];
-            let _static = group[1];
-            if (typeof _static !== "undefined" && _static.length > 0) {
-                $('#sticky-sidebar').prepend(this.renderImage(_static[0]), null);
-            } else {
-                if (typeof _random === "undefined") {
-                    return false;
-                }
-                let item = this.getRandomObject(_random);
-                $("#sticky-sidebar").prepend(this.renderImage(item));
-            }
+            this.setPosition(top, $('#sticky-sidebar'));
         }
-
         if (!this.isEmpty(bottom)) {
-            let group = this.groupBy(bottom, 'is_random');
-            let _random = group[0];
-            let _static = group[1];
-            if (typeof _static !== "undefined" && _static.length > 0) {
-                $('.block_cate:last-child').prepend(this.renderImage(_static[0]), null);
-            } else {
-                if (typeof _random === "undefined") {
-                    return false;
-                }
-                let item = this.getRandomObject(_random);
-                $(".block_cate:last-child").prepend(this.renderImage(item));
-            }
+            this.setPosition(top, $('.block_cate:last-child'));
         }
     }
     this.init = async function () {
@@ -197,5 +176,3 @@ function initAds(page = 'home') {
     }
 
 }
-
-new initAds('home').init();
