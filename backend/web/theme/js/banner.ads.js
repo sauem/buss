@@ -185,15 +185,13 @@ function initAds(page = 'home') {
 
 $(document).ready(function () {
     let url = window.location.href;
-    console.log(url);
-    if (url !== 'https://www.businessstyle.vn/' || url !== 'https://businessstyle.vn') {
-        page = 'archive';
+    let page = 'archive';
+    if (url == 'https://www.businessstyle.vn/' || url == 'https://businessstyle.vn') {
+        page = 'home';
     }
     if (url.includes('.html') || url.includes('.htm')) {
         page = 'post';
     }
-    if (url === 'https://www.businessstyle.vn' || url === 'https://businessstyle.vn') {
-        page = 'home';
-    }
+
     new initAds(page).init();
 });
