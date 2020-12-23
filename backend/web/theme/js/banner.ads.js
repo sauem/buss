@@ -172,13 +172,21 @@ function initAds(page = 'home') {
             this.setPosition(right, $('#sticky-sidebar'));
         }
         if (!this.isEmpty(bottom)) {
-            let _el = $('.block_cate').last();
+            let _el = null,
+                prep = true;
             switch (getPage()) {
                 case PAGE_POST:
                     _el = $('.contain');
+                    prep = false;
+                    break;
+                case PAGE_ARCHIVE:
+                    _el = $('.lux_event').last();
+                    break;
+                default:
+                    _el = $('.block_cate').last();
                     break;
             }
-            this.setPosition(bottom, _el, false);
+            this.setPosition(bottom, _el, prep);
         }
     }
     this.init = async function () {
