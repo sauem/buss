@@ -51,13 +51,14 @@ class DefaultController extends Controller
         $bannerId = \Yii::$app->request->post('bannerKey'); // banner key
         $page = \Yii::$app->request->post('page'); // page shown
         $type = \Yii::$app->request->post('type'); //click or show
+        $ip = Yii::$app->getRequest()->getUserIP(); //click or show
 
         $banner = Banners::findOne($bannerId);
         if (!$banner) {
             throw new BadRequestHttpException('Không tìm thấy link!');
         }
         try {
-            $model = StatisticReport::findOne(['banner_id' => $bannerId]);
+            $model = StatisticReport::findOne(['banner_id' => $bannerId, 'ip' => $ip]);
             if (!$model) {
                 $model = new StatisticReport();
             }
