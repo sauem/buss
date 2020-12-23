@@ -117,7 +117,7 @@ function initAds(page = 'home') {
         let image = document.createElement('img');
         let link = document.createElement('a');
         image.setAttribute('src', url);
-        image.setAttribute('class', 'img-fluid');
+        image.setAttribute('class', 'img-fluid banner-ads');
         image.setAttribute('alt', title);
         if (height) {
             image.style.height = height + 'px';
@@ -149,6 +149,8 @@ function initAds(page = 'home') {
             let item = this.getRandomObject(_random);
             element.prepend(this.renderImage(item));
         }
+        console.log(_static);
+        console.log(_random);
     }
     //Generate and display banner to frontend view
     this.renderAds = function (page, data) {
