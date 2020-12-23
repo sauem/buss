@@ -136,21 +136,24 @@ function initAds(page = 'home') {
         }
         return true;
     }
-    this.setPosition = function (data, element) {
+    this.setPosition = function (data, element, prepend = true) {
         let group = this.groupBy(data, 'is_random');
         let _random = group[0];
         let _static = group[1];
+        let item = null;
         if (typeof _static !== "undefined" && _static.length > 0) {
-            element.prepend(this.renderImage(_static[0]), null);
+            item = _static[0];
         } else {
             if (typeof _random === "undefined") {
                 return false;
             }
-            let item = this.getRandomObject(_random);
+            item = this.getRandomObject(_random);
+        }
+        if (!prepend) {
+            element.append(this.renderImage(item));
+        } else {
             element.prepend(this.renderImage(item));
         }
-        console.log(_static);
-        console.log(_random);
     }
     //Generate and display banner to frontend view
     this.renderAds = function (page, data) {
@@ -169,7 +172,13 @@ function initAds(page = 'home') {
             this.setPosition(right, $('#sticky-sidebar'));
         }
         if (!this.isEmpty(bottom)) {
-            this.setPosition(bottom, $('.block_cate').last());
+            let _el = $('.block_cate').last();
+            switch (getPage()) {
+                case PAGE_POST:
+                    _el = $('.contain');
+                    break;
+            }
+            this.setPosition(bottom, _el, false);
         }
     }
     this.init = async function () {
@@ -183,15 +192,18 @@ function initAds(page = 'home') {
 
 }
 
-$(document).ready(function () {
+function getPage() {
     let url = window.location.href;
-    let page = 'archive';
+    let page = PAGE_ARCHIVE;
     if (url == 'https://www.businessstyle.vn/' || url == 'https://businessstyle.vn') {
-        page = 'home';
+        page = PAGE_HOME;
     }
     if (url.includes('.html') || url.includes('.htm')) {
-        page = 'post';
+        page = PAGE_POST;
     }
+    return page;
+}
 
-    new initAds(page).init();
+$(document).ready(function () {
+    new initAds(getPage()).init();
 });
