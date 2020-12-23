@@ -163,10 +163,10 @@ function initAds(page = 'home') {
             this.setPosition(top, $('#main'));
         }
         if (!this.isEmpty(right)) {
-            this.setPosition(top, $('#sticky-sidebar'));
+            this.setPosition(right, $('#sticky-sidebar'));
         }
         if (!this.isEmpty(bottom)) {
-            this.setPosition(top, $('.block_cate').last());
+            this.setPosition(bottom, $('.block_cate').last());
         }
     }
     this.init = async function () {
