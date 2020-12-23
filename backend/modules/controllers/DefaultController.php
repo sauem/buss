@@ -64,10 +64,10 @@ class DefaultController extends Controller
             $model->banner_id = $bannerId;
             switch ($type) {
                 case StatisticReport::TYPE_CLICK:
-                    $model->click += $model->click;
+                    $model->click = $model->click + 1;
                     break;
                 case StatisticReport::TYPE_SHOWN:
-                    $model->shown += $model->shown;
+                    $model->shown = $model->shown + 1;
                     break;
             }
             $model->ip = Yii::$app->getRequest()->getUserIP();
