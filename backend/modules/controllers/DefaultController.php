@@ -58,7 +58,7 @@ class DefaultController extends Controller
             throw new BadRequestHttpException('Không tìm thấy link!');
         }
         try {
-            $model = StatisticReport::findOne(['banner_id' => $bannerId, 'ip' => $ip]);
+            $model = StatisticReport::findOne(['banner_id' => $bannerId]);
             if (!$model) {
                 $model = new StatisticReport();
             }

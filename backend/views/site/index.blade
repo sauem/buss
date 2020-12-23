@@ -24,9 +24,9 @@ use kartik\grid\GridView;
             'columns' => [
                 [
                     'label' => 'Banner',
-                    'attribute' => 'banner_id',
+                    'attribute' => 'title',
                     'value' => function ($model) {
-                        return $model->banner_id;
+                        return $model->title;
                     }
                 ],
                 [
@@ -52,7 +52,7 @@ use kartik\grid\GridView;
                 [
                     'label' => 'Today',
                     'value' => function ($model) {
-                        return $model->shown;
+                        return $model->click;
                     }
                 ],
             ]
