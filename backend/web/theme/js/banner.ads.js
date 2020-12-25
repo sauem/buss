@@ -155,10 +155,10 @@ function initAds(page = 'home') {
             sticky.setAttribute("class", "sticky-banner");
             $("body").append(sticky);
         } else {
-            let lux_event = $("body").find(".lux_event");
-            let position = Math.round(lux_event.length / 2);
+            let lux_event = $("body").find("section.lux_event");
+            let position = Math.round(lux_event.length / 2) - 1;
             console.log(position);
-            $("body").find(`.lux_event:nth-child(${position})`).prepend(sticky);
+            $("body").find(`section.lux_event:nth-child(${position})`).append(sticky);
         }
 
     }
