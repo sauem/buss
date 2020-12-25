@@ -146,11 +146,11 @@ function initAds(page = 'home') {
     this.setInnerPost = function (item) {
         let bellow_post = item.bellow_post && typeof item.below_post !== "undefined" ? parseInt(item.bellow_post) : 2;
 
-        $(".contain").find(`p:nth-child(${bellow_post})`).append(this.renderImage(item));
+        $(".contain").find(`p:nth-child(${bellow_post})`).append(this.switchType(item));
     }
     this.setItemSticky = function (item) {
         let sticky = document.createElement("div");
-        sticky.appendChild(this.renderImage(item));
+        sticky.appendChild(this.switchType(item));
         if (this.getUserAgent() !== DEVICE_MOBILE) {
             sticky.setAttribute("class", "sticky-banner");
             $("body").append(sticky);
@@ -161,6 +161,14 @@ function initAds(page = 'home') {
             $(`section.lux_event:eq(${position})`).append(sticky);
         }
 
+    }
+    this.switchType = function (item) {
+        switch (item.type) {
+            case TYPE_VIDEO:
+                return this.renderVideo(item);
+            default:
+                return this.renderImage(item)
+        }
     }
     this.setPosition = function (data, element, prepend = true) {
         let group = this.groupBy(data, 'is_random');
@@ -184,9 +192,9 @@ function initAds(page = 'home') {
             return false;
         }
         if (!prepend) {
-            element.append(this.renderImage(item));
+            element.append(this.switchType(item));
         } else {
-            element.prepend(this.renderImage(item));
+            element.prepend(this.switchType(item));
         }
     }
     //Generate and display banner to frontend view
