@@ -157,8 +157,8 @@ function initAds(page = 'home') {
         } else {
             let lux_event = $("body").find("section.lux_event");
             let position = Math.round(lux_event.length / 2) - 1;
-            console.log(position);
-            $(`section.lux_event:nth-child(${position})`).append("<h1>JELLLLO</h1>");
+
+            $(`section.lux_event:eq(${position})`).append(sticky);
         }
 
     }
