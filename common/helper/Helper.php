@@ -94,4 +94,13 @@ class Helper
         }
         return false;
     }
+
+    static function timer($string)
+    {
+        if (strtotime($string)) {
+            return strtotime($string);
+        }
+        $time = \DateTime::createFromFormat('m-d-Y', $string)->format('m-d-Y');
+        return strtotime($time);
+    }
 }

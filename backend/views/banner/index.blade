@@ -80,7 +80,16 @@ use kartik\grid\ActionColumn;
                                     return Banners::bannerLabel($model->active);
                                 }
                             ],
-                            'sort',
+                            [
+                                'attribute' => 'time_range',
+                                'format' => 'html',
+                                'value' => function ($model) {
+                                    if ($model->timer_start && $model->timer_end) {
+                                        return date('d/m/Y', $model->timer_start) . ' - ' . date('d/m/Y', $model->timer_end);
+                                    }
+                                    return "---";
+                                }
+                            ],
                             [
                                 'attribute' => 'type',
                                 'format' => 'html',
@@ -163,6 +172,13 @@ use kartik\grid\ActionColumn;
                                 'format' => 'html',
                                 'value' => function ($model) {
                                     return Banners::bannerLabel($model->active);
+                                }
+                            ],
+                            [
+                                'attribute' => 'time_range',
+                                'format' => 'html',
+                                'value' => function ($model) {
+                                    return $model->time_range;
                                 }
                             ],
                             'sort',

@@ -25,8 +25,11 @@ use yii\helpers\Html;
  * @property string|null $device
  * @property string|null $domain
  * @property string|null $youtube_url
+ * @property string|null $time_range
  * @property int $created_at
  * @property int $updated_at
+ * @property int|null $timer_start
+ * @property int|null $timer_end
  *
  * @property StatisticReport[] $statisticReports
  */
@@ -38,6 +41,7 @@ class Banners extends \common\models\BaseModel
     public $thumb;
     public $avatar;
     public $public;
+    public $time_range;
 
     const STATUS_ACTIVE = 'active';
     const STATUS_DEACTIVE = 'deactive';
@@ -109,12 +113,12 @@ class Banners extends \common\models\BaseModel
     {
         return [
             [['height', 'width'], 'number'],
-            [['sort', 'type', 'is_random', 'bellow_post', 'created_at', 'updated_at'], 'integer'],
+            [['sort', 'type', 'is_random', 'bellow_post', 'created_at', 'updated_at', 'timer_start', 'timer_end'], 'integer'],
             [['title', 'page', 'position', 'active', 'device', 'type', 'is_random'], 'required'],
             [['title', 'href', 'domain'], 'string', 'max' => 255],
             [['position'], 'string', 'max' => 100],
             [['active', 'device'], 'string', 'max' => 50],
-            [['thumb', 'avatar', 'page', 'youtube_url'], 'safe'],
+            [['thumb', 'avatar', 'page', 'youtube_url', 'time_range'], 'safe'],
         ];
     }
 
@@ -129,6 +133,13 @@ class Banners extends \common\models\BaseModel
         }
         if ($this->page && is_array($this->page)) {
             $this->page = implode(',', $this->page);
+        }
+        if ($this->time_range && !empty($this->time_range)) {
+            $times = explode(' - ', $this->time_range);
+            $startAt = Helper::timer(str_replace('/', '-', $times[0]));
+            $endAt = Helper::timer(str_replace('/', '-', $times[1]));
+            $this->timer_start = $startAt ? $startAt : null;
+            $this->timer_end = $endAt ? $endAt : null;
         }
         if ($insert) {
             if (self::existPosition($this->position, $this->page, $this->device)
@@ -171,6 +182,8 @@ class Banners extends \common\models\BaseModel
             'device' => 'Thiết bị',
             'domain' => 'Domain',
             'thumb' => 'Hình ảnh',
+            'time_start' => 'Ngày bắt đầu',
+            'time_end' => 'Giờ kết thúc',
             'youtube_url' => 'Link video',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -190,6 +203,9 @@ class Banners extends \common\models\BaseModel
     {
         if ($this->page && !empty($this->page)) {
             $this->page = explode(',', $this->page);
+        }
+        if (!empty($this->timer_start) && !empty($this->timer_end)) {
+            $this->time_range = date('d/m/Y', $this->timer_start) . ' - ' . date('d/m/Y', $this->timer_end);
         }
         $this->avatar = $this->media ? $this->media->media->url : Helper::defaultImage('product');
         $this->thumb = $this->media ? $this->media->media->id : null;
