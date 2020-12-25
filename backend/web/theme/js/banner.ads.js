@@ -150,10 +150,16 @@ function initAds(page = 'home') {
     }
     this.setItemSticky = function (item) {
         let sticky = document.createElement("div");
-
-        sticky.setAttribute("class", "sticky-banner");
         sticky.appendChild(this.renderImage(item));
-        $("body").append(sticky);
+        if (this.getUserAgent() !== DEVICE_MOBILE) {
+            sticky.setAttribute("class", "sticky-banner");
+            $("body").append(sticky);
+        } else {
+            let lux_event = $("body").find(".lux_event");
+            let position = Math.round(lux_event.length / 2);
+            $("body").find(`.lux_event:nth-child(${position})`).prepend(sticky);
+        }
+
     }
     this.setPosition = function (data, element, prepend = true) {
         let group = this.groupBy(data, 'is_random');
@@ -172,7 +178,7 @@ function initAds(page = 'home') {
             this.setInnerPost(item);
             return false;
         }
-        if (this.getUserAgent() !== DEVICE_MOBILE && getPage() === PAGE_ARCHIVE && item.position === POSITION_RIGHT) {
+        if (getPage() === PAGE_ARCHIVE && item.position === POSITION_RIGHT) {
             this.setItemSticky(item);
             return false;
         }
