@@ -157,6 +157,7 @@ function initAds(page = 'home') {
         } else {
             let lux_event = $("body").find(".lux_event");
             let position = Math.round(lux_event.length / 2);
+            console.log(position);
             $("body").find(`.lux_event:nth-child(${position})`).prepend(sticky);
         }
 
