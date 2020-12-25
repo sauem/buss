@@ -119,7 +119,7 @@ function initAds(page = 'home') {
         let link = document.createElement('a');
         image.setAttribute('src', url);
         image.setAttribute('class', 'img-fluid banner-ads');
-        image.setAttribute('with', '100%');
+        image.setAttribute('width', '100%');
         image.setAttribute('alt', title);
         if (height) {
             image.style.height = height + 'px';
