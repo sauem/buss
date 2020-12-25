@@ -147,6 +147,13 @@ function initAds(page = 'home') {
 
         $(".contain").find(`p:nth-child(${bellow_post})`).append(this.renderImage(item));
     }
+    this.setItemSticky = function (item) {
+        let sticky = document.createElement("div");
+
+        sticky.setAttribute("class", "sticky-banner");
+        sticky.appendChild(this.renderImage(item));
+        $("body").append(sticky);
+    }
     this.setPosition = function (data, element, prepend = true) {
         let group = this.groupBy(data, 'is_random');
         let _random = group[0];
@@ -162,6 +169,10 @@ function initAds(page = 'home') {
         }
         if (item.position === POSITION_CONTENT) {
             this.setInnerPost(item);
+            return false;
+        }
+        if (getPage() === PAGE_ARCHIVE) {
+            this.setItemSticky(item);
             return false;
         }
         if (!prepend) {
