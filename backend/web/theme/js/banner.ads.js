@@ -172,7 +172,7 @@ function initAds(page = 'home') {
             this.setInnerPost(item);
             return false;
         }
-        if (getPage() === PAGE_ARCHIVE && item.position === POSITION_RIGHT) {
+        if (this.getUserAgent() !== DEVICE_MOBILE && getPage() === PAGE_ARCHIVE && item.position === POSITION_RIGHT) {
             this.setItemSticky(item);
             return false;
         }
