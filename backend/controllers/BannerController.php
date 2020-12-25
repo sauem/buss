@@ -16,8 +16,20 @@ class BannerController extends BaseController
     public function actionIndex()
     {
         $searchModel = new BannersSearch();
-        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-        return $this->render('index.blade', ['dataProvider' => $dataProvider]);
+        $mobileProvider = $searchModel->search(array_merge(\Yii::$app->request->queryParams, [
+            "BannersSearch" => [
+                'device' => Banners::DEVICE_MOBILE
+            ]
+        ]));
+        $desktopProvider = $searchModel->search(array_merge(\Yii::$app->request->queryParams, [
+            "BannersSearch" => [
+                'device' => Banners::DEVICE_DESKTOP
+            ]
+        ]));
+        return $this->render('index.blade', [
+            'desktopProvider' => $desktopProvider,
+            'mobileProvider' => $mobileProvider
+        ]);
     }
 
     public function actionCreate()

@@ -16,88 +16,192 @@ use kartik\grid\ActionColumn;
             <h4 class="card-title">Danh sách banner</h4>
         </div>
         <div class="card-body">
-            <?= GridView::widget([
-                'pjax' => true,
-                'layout' => '{items}{pager}',
-                'tableOptions' => [
-                    'class' => 'table-sm table-hover'
-                ],
-                'pjaxSettings' => [
-                    'neverTimeout' => true,
-                    'options' => [
-                        'id' => 'banner-box'
-                    ]
-                ],
-                'perfectScrollbar' => true,
-                'dataProvider' => $dataProvider,
-                'columns' => [
-                    [
-                        'label' => 'Sản phẩm',
-                        'attribute' => 'avatar',
-                        'format' => 'raw',
-                        'value' => function ($model) {
-                            $html = '<div class="d-flex">';
-                            $html .= "<div class='table-img-view'><a target='_blank' href='" . ($model->href ? $model->href : '#') . "'><img src='{$model->avatar}' class='img-fluid'></a></div>";
-                            $html .= '<div class="text ml-2">';
-                            $html .= "<h6 class='m-1'><a target='_blank' href='" . ($model->href ? $model->href : '#') . "'>Tiêu đề: {$model->title}</a></h6>";
-                            $html .= "<h6 class='m-1'>Vị trí: " . ArrayHelper::getValue(Banners::POSITION, $model->position, '---') . "</h6>";
-                            $html .= "<h6 class='m-1'>Kiểu hiển thị: " . ArrayHelper::getValue(Banners::STYLE, $model->is_random, '---') . "</h6>";
-                            if ($model->width && $model->height) {
-                                $html .= "<h6>{$model->width}*{$model->height}</h6>";
-                            }
-                            $html .= '</div>';
-                            $html .= '</div>';
-                            return $html;
-                        }
-                    ],
-                    [
-                        'attribute' => 'page',
-                        'format' => 'html',
-                        'value' => function ($model) {
-                            return Banners::pageLabel($model->page);
-                        }
-                    ],
-                    [
-                        'attribute' => 'active',
-                        'format' => 'html',
-                        'value' => function ($model) {
-                            return Banners::bannerLabel($model->active);
-                        }
-                    ],
-                    'sort',
-                    [
-                        'attribute' => 'type',
-                        'format' => 'html',
-                        'value' => function ($model) {
-                            return ArrayHelper::getValue(Banners::TYPE, $model->type, '---');
-                        }
-                    ],
-                    [
-                        'attribute' => 'device',
-                        'format' => 'html',
-                        'value' => function ($model) {
-                            return ArrayHelper::getValue(Banners::DEVICE, $model->device, '---');
-                        }
-                    ],
-                    [
-                        'class' => ActionColumn::class,
-                        'template' => '{update}{delete}',
-                        'width' => '10%',
-                        'buttons' => [
-                            'update' => function ($url) {
-                                return Component::btnUpdate($url, null, [
-                                    'role' => 'modal-remote'
-                                ]);
-                            },
+            <ul class="nav nav-tabs nav-bordered">
+                <li class="nav-item">
+                    <a href="#tab-1" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                        Desktop
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#tab-2" data-toggle="tab" aria-expanded="true" class="nav-link ">
+                        Mobile
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab-1">
+                    <?= GridView::widget([
+                        'pjax' => true,
+                        'layout' => '{items}{pager}',
+                        'tableOptions' => [
+                            'class' => 'table-sm table-hover'
+                        ],
+                        'options' => ['id' => 'desktop-grid'],
+                        'pjaxSettings' => [
+                            'neverTimeout' => true,
+                            'options' => [
+                                'id' => 'desktop-box',
 
-                            'delete' => function ($url) {
-                                return Component::btnDelete($url);
-                            },
+                            ]
+                        ],
+                        'perfectScrollbar' => true,
+                        'dataProvider' => $desktopProvider,
+                        'columns' => [
+                            [
+                                'label' => 'Sản phẩm',
+                                'attribute' => 'avatar',
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                    $html = '<div class="d-flex">';
+                                    $html .= "<div class='table-img-view'><a target='_blank' href='" . ($model->href ? $model->href : '#') . "'><img src='{$model->avatar}' class='img-fluid'></a></div>";
+                                    $html .= '<div class="text ml-2">';
+                                    $html .= "<h6 class='m-1'><a target='_blank' href='" . ($model->href ? $model->href : '#') . "'>Tiêu đề: {$model->title}</a></h6>";
+                                    $html .= "<h6 class='m-1'>Vị trí: " . ArrayHelper::getValue(Banners::POSITION, $model->position, '---') . "</h6>";
+                                    $html .= "<h6 class='m-1'>Kiểu hiển thị: " . ArrayHelper::getValue(Banners::STYLE, $model->is_random, '---') . "</h6>";
+                                    if ($model->width && $model->height) {
+                                        $html .= "<h6>{$model->width}*{$model->height}</h6>";
+                                    }
+                                    $html .= '</div>';
+                                    $html .= '</div>';
+                                    return $html;
+                                }
+                            ],
+                            [
+                                'attribute' => 'page',
+                                'format' => 'html',
+                                'value' => function ($model) {
+                                    return Banners::pageLabel($model->page);
+                                }
+                            ],
+                            [
+                                'attribute' => 'active',
+                                'format' => 'html',
+                                'value' => function ($model) {
+                                    return Banners::bannerLabel($model->active);
+                                }
+                            ],
+                            'sort',
+                            [
+                                'attribute' => 'type',
+                                'format' => 'html',
+                                'value' => function ($model) {
+                                    return ArrayHelper::getValue(Banners::TYPE, $model->type, '---');
+                                }
+                            ],
+                            [
+                                'attribute' => 'device',
+                                'format' => 'html',
+                                'value' => function ($model) {
+                                    return ArrayHelper::getValue(Banners::DEVICE, $model->device, '---');
+                                }
+                            ],
+                            [
+                                'class' => ActionColumn::class,
+                                'template' => '{update}{delete}',
+                                'width' => '10%',
+                                'buttons' => [
+                                    'update' => function ($url) {
+                                        return Component::btnUpdate($url, null, [
+                                            'role' => 'modal-remote'
+                                        ]);
+                                    },
 
+                                    'delete' => function ($url) {
+                                        return Component::btnDelete($url);
+                                    },
+
+                                ]
+                            ]
                         ]
-                    ]
-                ]
-            ]) ?>
+                    ]) ?>
+                </div>
+                <div class="tab-pane" id="tab-2">
+                    <?= GridView::widget([
+                        'pjax' => true,
+                        'layout' => '{items}{pager}',
+                        'options' => ['id' => 'mobile-grid'],
+                        'tableOptions' => [
+                            'class' => 'table-sm table-hover'
+                        ],
+                        'pjaxSettings' => [
+                            'neverTimeout' => true,
+                            'options' => [
+                                'id' => 'mobile-box',
+                            ]
+                        ],
+                        'perfectScrollbar' => true,
+                        'dataProvider' => $mobileProvider,
+                        'columns' => [
+                            [
+                                'label' => 'Sản phẩm',
+                                'attribute' => 'avatar',
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                    $html = '<div class="d-flex">';
+                                    $html .= "<div class='table-img-view'><a target='_blank' href='" . ($model->href ? $model->href : '#') . "'><img src='{$model->avatar}' class='img-fluid'></a></div>";
+                                    $html .= '<div class="text ml-2">';
+                                    $html .= "<h6 class='m-1'><a target='_blank' href='" . ($model->href ? $model->href : '#') . "'>Tiêu đề: {$model->title}</a></h6>";
+                                    $html .= "<h6 class='m-1'>Vị trí: " . ArrayHelper::getValue(Banners::POSITION, $model->position, '---') . "</h6>";
+                                    $html .= "<h6 class='m-1'>Kiểu hiển thị: " . ArrayHelper::getValue(Banners::STYLE, $model->is_random, '---') . "</h6>";
+                                    if ($model->width && $model->height) {
+                                        $html .= "<h6>{$model->width}*{$model->height}</h6>";
+                                    }
+                                    $html .= '</div>';
+                                    $html .= '</div>';
+                                    return $html;
+                                }
+                            ],
+                            [
+                                'attribute' => 'page',
+                                'format' => 'html',
+                                'value' => function ($model) {
+                                    return Banners::pageLabel($model->page);
+                                }
+                            ],
+                            [
+                                'attribute' => 'active',
+                                'format' => 'html',
+                                'value' => function ($model) {
+                                    return Banners::bannerLabel($model->active);
+                                }
+                            ],
+                            'sort',
+                            [
+                                'attribute' => 'type',
+                                'format' => 'html',
+                                'value' => function ($model) {
+                                    return ArrayHelper::getValue(Banners::TYPE, $model->type, '---');
+                                }
+                            ],
+                            [
+                                'attribute' => 'device',
+                                'format' => 'html',
+                                'value' => function ($model) {
+                                    return ArrayHelper::getValue(Banners::DEVICE, $model->device, '---');
+                                }
+                            ],
+                            [
+                                'class' => ActionColumn::class,
+                                'template' => '{update}{delete}',
+                                'width' => '10%',
+                                'buttons' => [
+                                    'update' => function ($url) {
+                                        return Component::btnUpdate($url, null, [
+                                            'role' => 'modal-remote'
+                                        ]);
+                                    },
+
+                                    'delete' => function ($url) {
+                                        return Component::btnDelete($url);
+                                    },
+
+                                ]
+                            ]
+                        ]
+                    ]) ?>
+                </div>
+            </div>
+
         </div>
     </div>
     {!! $view->render('@backend/views/parts/Modal.blade', ['id' => 'banner-modal']) !!}
@@ -107,7 +211,7 @@ use kartik\grid\ActionColumn;
     <script>
 
         $(document).on('click', '[role="modal-remote"]', function (event) {
-            let modal = new ModalRemote('#banner-modal', '#banner-box');
+            let modal = new ModalRemote('#banner-modal', ["#mobile-box", "#desktop-box"], {timeout: false});
             event.preventDefault();
             modal.remote(this, null);
         });

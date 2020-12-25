@@ -280,7 +280,15 @@ function ModalRemote(modalId, containerId, pjaxOptions = {}) {
         // reload datatable if response contain forceReload field
         if (response.forceReload !== undefined && response.forceReload) {
             //$.pjax.reload({container:containerId});
-            $.pjax.reload(containerId, pjaxOptions);
+            if (Array.isArray(containerId)) {
+                for (const id of containerId) {
+                    $.pjax.reload(id, pjaxOptions);
+                }
+            } else {
+                $.pjax.reload(containerId, pjaxOptions);
+            }
+            // $.pjax.reload('#mobile-box', pjaxOptions);
+            // $.pjax.reload('#desktop-box', pjaxOptions);
         }
 
         // close modal if response contain forceClose field
