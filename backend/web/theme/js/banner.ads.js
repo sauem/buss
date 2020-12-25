@@ -171,7 +171,7 @@ function initAds(page = 'home') {
             this.setInnerPost(item);
             return false;
         }
-        if (getPage() === PAGE_ARCHIVE) {
+        if (getPage() === PAGE_ARCHIVE && item.position === POSITION_RIGHT) {
             this.setItemSticky(item);
             return false;
         }
