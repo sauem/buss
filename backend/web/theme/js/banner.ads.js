@@ -111,8 +111,11 @@ function initAds(page = 'home') {
         this.countShown(item.id, null);
         return iframe;
     }
-    this.renderImage = function (item) {
+    this.renderImage = function (item, getLink = false) {
         let {media, title, href, width, height} = item;
+        if (getLink) {
+            return href;
+        }
         let instance = this;
         let url = BASE_URL + media.media.url;
         let image = document.createElement('img');
@@ -145,8 +148,16 @@ function initAds(page = 'home') {
     }
     this.setInnerPost = function (item) {
         let bellow_post = item.bellow_post && typeof item.below_post !== "undefined" ? parseInt(item.bellow_post) : 2;
+        if (this.getUserAgent() === DEVICE_MOBILE) {
+            let href = this.switchType(item, true);
+            let parallax = document.createElement("div");
+            parallax.setAttribute("style", `background-image : url(${href})`);
+            parallax.setAttribute("class", `parallax`);
+            $(".contain").find(`p:nth-child(${bellow_post})`).append(parallax);
 
-        $(".contain").find(`p:nth-child(${bellow_post})`).append(this.switchType(item));
+        } else {
+            $(".contain").find(`p:nth-child(${bellow_post})`).append(this.switchType(item));
+        }
     }
     this.setItemSticky = function (item) {
         let sticky = document.createElement("div");
@@ -162,12 +173,12 @@ function initAds(page = 'home') {
         }
 
     }
-    this.switchType = function (item) {
+    this.switchType = function (item, link = false) {
         switch (item.type) {
             case TYPE_VIDEO:
                 return this.renderVideo(item);
             default:
-                return this.renderImage(item)
+                return this.renderImage(item, link)
         }
     }
     this.setPosition = function (data, element, prepend = true) {

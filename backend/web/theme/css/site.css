@@ -138,5 +138,11 @@ td .text-td p {
     max-width: 100%; }
   .modal-dialog.modal-md {
     max-width: 50vw; } }
+.parallax {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  height: 250px; }
 
 /*# sourceMappingURL=site.css.map */
