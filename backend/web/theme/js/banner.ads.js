@@ -113,9 +113,7 @@ function initAds(page = 'home') {
     }
     this.renderImage = function (item, getLink = false) {
         let {media, title, href, width, height} = item;
-        if (getLink) {
-            return href;
-        }
+
         let instance = this;
         let url = BASE_URL + media.media.url;
         let image = document.createElement('img');
@@ -137,7 +135,10 @@ function initAds(page = 'home') {
             evt.preventDefault();
             instance.countClick(item.id, null);
             return false;
-        })
+        });
+        if (getLink) {
+            return url;
+        }
         return link;
     }
     this.isEmpty = function (item) {
