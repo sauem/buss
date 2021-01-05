@@ -152,13 +152,20 @@ function initAds(page = 'home') {
         if (this.getUserAgent() === DEVICE_MOBILE) {
             let image = this.switchType(item, true);
             let parallax = document.createElement("div");
+            let parallaxWrap = document.createElement("div");
+            let contentParallaxWrap = document.createElement("div");
             let tag = document.createElement('a');
+            contentParallaxWrap.setAttribute("class", "content-parallax-wrap");
+            parallax.setAttribute("class", "parallax-wrap");
+            contentParallaxWrap.appendChild(parallaxWrap);
+            parallaxWrap.appendChild(parallax);
             tag.setAttribute("href", item.href);
             tag.setAttribute("target", "_blank");
             parallax.setAttribute("style", `background-image : url(${image})`);
             parallax.setAttribute("class", `parallax`);
             tag.appendChild(parallax);
-            $(".contain").find(`p:nth-child(${bellow_post})`).append(parallax);
+
+            $(".contain").find(`p:nth-child(${bellow_post})`).append(contentParallaxWrap);
 
         } else {
             $(".contain").find(`p:nth-child(${bellow_post})`).append(this.switchType(item));
