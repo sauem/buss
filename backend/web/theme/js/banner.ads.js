@@ -156,7 +156,7 @@ function initAds(page = 'home') {
             let contentParallaxWrap = document.createElement("div");
             let tag = document.createElement('a');
             contentParallaxWrap.setAttribute("class", "content-parallax-wrap");
-            parallax.setAttribute("class", "parallax-wrap");
+            parallaxWrap.setAttribute("class", "parallax-wrap");
 
 
             tag.setAttribute("href", item.href);
