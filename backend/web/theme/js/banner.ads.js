@@ -157,13 +157,16 @@ function initAds(page = 'home') {
             let tag = document.createElement('a');
             contentParallaxWrap.setAttribute("class", "content-parallax-wrap");
             parallax.setAttribute("class", "parallax-wrap");
-            contentParallaxWrap.appendChild(parallaxWrap);
-            parallaxWrap.appendChild(parallax);
+
+
             tag.setAttribute("href", item.href);
             tag.setAttribute("target", "_blank");
             parallax.setAttribute("style", `background-image : url(${image})`);
             parallax.setAttribute("class", `parallax`);
+
             tag.appendChild(parallax);
+            parallaxWrap.appendChild(tag);
+            contentParallaxWrap.appendChild(parallaxWrap);
 
             $(".contain").find(`p:nth-child(${bellow_post})`).append(contentParallaxWrap);
 
