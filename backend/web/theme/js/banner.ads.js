@@ -150,10 +150,14 @@ function initAds(page = 'home') {
     this.setInnerPost = function (item) {
         let bellow_post = item.bellow_post && typeof item.below_post !== "undefined" ? parseInt(item.bellow_post) : 2;
         if (this.getUserAgent() === DEVICE_MOBILE) {
-            let href = this.switchType(item, true);
+            let image = this.switchType(item, true);
             let parallax = document.createElement("div");
-            parallax.setAttribute("style", `background-image : url(${href})`);
+            let tag = document.createElement('a');
+            tag.setAttribute("href", item.href);
+            tag.setAttribute("target", "_blank");
+            parallax.setAttribute("style", `background-image : url(${image})`);
             parallax.setAttribute("class", `parallax`);
+            tag.appendChild(parallax);
             $(".contain").find(`p:nth-child(${bellow_post})`).append(parallax);
 
         } else {
